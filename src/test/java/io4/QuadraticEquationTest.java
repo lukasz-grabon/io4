@@ -71,6 +71,7 @@ class QuadraticEquationTest {
             new QuadraticEquation(a, b, c);
         });
     }
+
     private static Stream<Arguments> provideData() {
         return Stream.of(
                 Arguments.of(null, 3d, 1d),
