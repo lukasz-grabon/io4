@@ -27,15 +27,12 @@ class QuadraticEquationTest {
     public void testQuadraticEquation_deltaLowerThan0(){
         //for
         float a = 1, b = 1, c = 1;
-        QuadraticEquation equation = new QuadraticEquation(a, b, c);
 
         //when
-        Exception thrown = assertThrows(Exception.class, () -> {
-            equation.getDelta();
-        });
+        QuadraticEquation equation = new QuadraticEquation(a, b, c);
 
         //then
-        assertEquals("Delta mniejsza od zera", thrown.getMessage());
+        assertTrue(equation.getDelta() < 0);
     }
 
     @Test
