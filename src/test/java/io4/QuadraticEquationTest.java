@@ -67,7 +67,7 @@ class QuadraticEquationTest {
         QuadraticEquation equation = new QuadraticEquation(a, b, c);
 
         //when
-        String result = equation.getResult();
+//        String result = equation.getResult();
 
         //then
         assertEquals(resultMessage, result);
