@@ -1,52 +1,73 @@
 package io4;
 
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
-
-import java.util.stream.Stream;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 class QuadraticEquationTest {
 
-    private static Stream<Arguments> provideData() {
-        return Stream.of(
-                Arguments.of(1d, 2d, 1d, 0d, -1d, null, null, "Delta równa 0, pierwiastek x0 = -1.0"),
-                Arguments.of(2d, 1d, 2d, -15d, null, null, null, "Delta mniejsza od zera, brak pierwiastków"),
-                Arguments.of(1d, 4d, 3d, 4d, null, -1d, -3d, "Delta wieksza od zera, pierwiastki: x1 = -1.0, x2 = -3.0"),
-                Arguments.of(null, 3d, 1d, null, null, null, null, null),
-                Arguments.of(1d, null, 1d, null, null, null, null, null),
-                Arguments.of(1d, 3d, null, null, null, null, null, null)
-        );
-    }
-
-    @ParameterizedTest
-    @MethodSource("provideData")
-    public void testResult(Double a, Double b, Double c, Double delta, Double x0, Double x1, Double x2, String resultMessage) {
+    @Test
+    public void testDeltaEqualZero() {
         //for
+        Double a = 1d, b = 2d, c = 1d;
 
         //when
         QuadraticEquation equation = new QuadraticEquation(a, b, c);
 
         //then
-        assertEquals(delta, equation.getDelta());
-        if(x0 == null){
-            assertNull(equation.getX0());
-        }else {
-            assertEquals(x0, equation.getX0());
-        }
-        if(x1 == null){
-            assertNull(equation.getX1());
-        }else {
-            assertEquals(x1, equation.getX1());
-        }
-        if(x2 == null){
-            assertNull(equation.getX2());
-        }else {
-            assertEquals(x2, equation.getX2());
-        }
-        assertEquals(resultMessage, equation.getResultMessage());
+        assertEquals(0d, equation.getDelta());
+        assertEquals(-1d, equation.getX0());
+        assertNull(equation.getX1());
+        assertNull(equation.getX2());
+        assertEquals("Delta równa 0, pierwiastek x0 = -1.0", equation.getResultMessage());
+    }
+
+    @Test
+    public void testDeltaLowerThanZero() {
+        //for
+        Double a = 2d, b = 1d, c = 2d;
+
+        //when
+        QuadraticEquation equation = new QuadraticEquation(a, b, c);
+
+        //then
+        assertEquals(-15d, equation.getDelta());
+        assertNull(equation.getX0());
+        assertNull(equation.getX1());
+        assertNull(equation.getX2());
+        assertEquals("Delta mniejsza od zera, brak pierwiastków", equation.getResultMessage());
+    }
+
+    @Test
+    public void testDeltaHigherThanZero() {
+        //for
+        Double a = 1d, b = 4d, c = 3d;
+
+        //when
+        QuadraticEquation equation = new QuadraticEquation(a, b, c);
+
+        //then
+        assertEquals(4d, equation.getDelta());
+        assertNull(equation.getX0());
+        assertEquals(-1d, equation.getX1());
+        assertEquals(-3d, equation.getX2());
+        assertEquals("Delta wieksza od zera, pierwiastki: x1 = -1.0, x2 = -3.0", equation.getResultMessage());
+    }
+
+    @Test
+    public void testAEqualZero() {
+        //for
+        Double a = null, b = 4d, c = 3d;
+
+        //when
+        QuadraticEquation equation = new QuadraticEquation(a, b, c);
+
+        //then
+        assertEquals(4d, equation.getDelta());
+        assertNull(equation.getX0());
+        assertEquals(-1d, equation.getX1());
+        assertEquals(-3d, equation.getX2());
+        assertEquals("Delta wieksza od zera, pierwiastki: x1 = -1.0, x2 = -3.0", equation.getResultMessage());
     }
 }
