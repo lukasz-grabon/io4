@@ -1,9 +1,13 @@
 package io4;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class QuadraticEquationTest {
 
@@ -50,24 +54,28 @@ class QuadraticEquationTest {
         //then
         assertEquals(4d, equation.getDelta());
         assertNull(equation.getX0());
-        assertEquals(-1d, equation.getX1());
-        assertEquals(-3d, equation.getX2());
-        assertEquals("Delta wieksza od zera, pierwiastki: x1 = -1.0, x2 = -3.0", equation.getResultMessage());
+        assertEquals(-3d, equation.getX1());
+        assertEquals(-1d, equation.getX2());
+        assertEquals("Delta wieksza od zera, pierwiastki: x1 = -3.0, x2 = -1.0", equation.getResultMessage());
     }
 
-    @Test
-    public void testAEqualZero() {
+    @ParameterizedTest
+    @MethodSource("provideData")
+    public void testAEqualZero(Double a, Double b, Double c) {
         //for
-        Double a = null, b = 4d, c = 3d;
 
         //when
-        QuadraticEquation equation = new QuadraticEquation(a, b, c);
 
         //then
-        assertEquals(4d, equation.getDelta());
-        assertNull(equation.getX0());
-        assertNull(equation.getX1());
-        assertNull(equation.getX2());
-        assertEquals("Delta wieksza od zera, pierwiastki: x1 = -1.0, x2 = -3.0", equation.getResultMessage());
+        assertThrows(NullPointerException.class, () -> {
+            new QuadraticEquation(a, b, c);
+        });
+    }
+    private static Stream<Arguments> provideData() {
+        return Stream.of(
+                Arguments.of(null, 3d, 1d),
+                Arguments.of(1d, null, 1d),
+                Arguments.of(1d, 3d, null)
+        );
     }
 }

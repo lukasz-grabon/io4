@@ -37,11 +37,11 @@ public class QuadraticEquation {
     }
 
     private void countX1() {
-        setX1(-getB() - Math.sqrt(getDelta()) / (2 * getA()));
+        setX1((-getB() - Math.sqrt(getDelta())) / (2 * getA()));
     }
 
     private void countX2() {
-        setX2(-getB() + Math.sqrt(getDelta()) / (2 * getA()));
+        setX2((-getB() + Math.sqrt(getDelta())) / (2 * getA()));
     }
 
     public String getResultMessage() {
