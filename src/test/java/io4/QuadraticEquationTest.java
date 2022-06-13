@@ -14,7 +14,7 @@ class QuadraticEquationTest {
     @Test
     public void testDeltaEqualZero() {
         //for
-        Double a = 1d, b = 2d, c = 1d;
+        double a = 1d, b = 2d, c = 1d;
 
         //when
         QuadraticEquation equation = new QuadraticEquation(a, b, c);
@@ -30,7 +30,7 @@ class QuadraticEquationTest {
     @Test
     public void testDeltaLowerThanZero() {
         //for
-        Double a = 2d, b = 1d, c = 2d;
+        double a = 2d, b = 1d, c = 2d;
 
         //when
         QuadraticEquation equation = new QuadraticEquation(a, b, c);
@@ -46,7 +46,7 @@ class QuadraticEquationTest {
     @Test
     public void testDeltaHigherThanZero() {
         //for
-        Double a = 1d, b = 4d, c = 3d;
+        double a = 1d, b = 4d, c = 3d;
 
         //when
         QuadraticEquation equation = new QuadraticEquation(a, b, c);
@@ -67,9 +67,7 @@ class QuadraticEquationTest {
         //when
 
         //then
-        assertThrows(NullPointerException.class, () -> {
-            new QuadraticEquation(a, b, c);
-        });
+        assertThrows(NullPointerException.class, () -> new QuadraticEquation(a, b, c));
     }
 
     private static Stream<Arguments> provideData() {
