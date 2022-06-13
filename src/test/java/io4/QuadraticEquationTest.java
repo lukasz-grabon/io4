@@ -11,56 +11,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class QuadraticEquationTest {
 
-    @Test
-    public void testQuadraticEquation_delta0(){
-        //for
-        float a = 1, b = 2, c = 1;
-
-        //when
-        QuadraticEquation equation = new QuadraticEquation(a, b, c);
-
-        //then
-        assertEquals(0, equation.getDelta());
-    }
-
-    @Test
-    public void testQuadraticEquation_deltaLowerThan0(){
-        //for
-        float a = 1, b = 1, c = 1;
-
-        //when
-        QuadraticEquation equation = new QuadraticEquation(a, b, c);
-
-        //then
-        assertTrue(equation.getDelta() < 0);
-    }
-
-    @Test
-    public void testQuadraticEquation_deltaHigherThan0(){
-        //for
-        float a = 1, b = 4, c = 3;
-
-        //when
-        QuadraticEquation equation = new QuadraticEquation(a, b, c);
-
-        //then
-        assertEquals(4, equation.getDelta());
-    }
-
     private static Stream<Arguments> provideData() {
         return Stream.of(
-                Arguments.of(1d, 2d, 1d, "Delta równa 0, pierwiastek x0 = -1.0"),
-                Arguments.of(1d, 1d, 1d, "Delta mniejsza od zera, brak pierwiastków"),
-                Arguments.of(1d, 4d, 3d, "Delta wieksza od zera, pierwiastki: x1 = -1.0, x2 = -3.0"),
-                Arguments.of(null, 3d, 1d, "Delta wieksza od zera, pierwiastki: x1 = 2, x2 = -2"),
-                Arguments.of(1d, null, 1d, "Delta wieksza od zera, pierwiastki: x1 = 2, x2 = -2"),
-                Arguments.of(1d, 3d, null, "Delta wieksza od zera, pierwiastki: x1 = 2, x2 = -2")
+                Arguments.of(1d, 2d, 1d, 0d, -1d, null, null, "Delta równa 0, pierwiastek x0 = -1.0"),
+                Arguments.of(2d, 1d, 2d, 4d, null, null, null, "Delta mniejsza od zera, brak pierwiastków"),
+                Arguments.of(1d, 4d, 3d, 4d, null, -1d, -3d, "Delta wieksza od zera, pierwiastki: x1 = -1.0, x2 = -3.0"),
+                Arguments.of(null, 3d, 1d, null, null, null, null, "Delta wieksza od zera, pierwiastki: x1 = 2, x2 = -2"),
+                Arguments.of(1d, null, 1d, null, null, null, null, "Delta wieksza od zera, pierwiastki: x1 = 2, x2 = -2"),
+                Arguments.of(1d, 3d, null, null, null, null, null, "Delta wieksza od zera, pierwiastki: x1 = 2, x2 = -2")
         );
     }
 
     @ParameterizedTest
     @MethodSource("provideData")
-    public void testResult(Double a, Double b, Double c, String resultMessage){
+    public void testResult(Double a, Double b, Double c, Double delta, Double x0, Double x1, Double x2, String resultMessage){
         //for
 
         //when
@@ -68,5 +32,9 @@ class QuadraticEquationTest {
 
         //then
         assertEquals(resultMessage, equation.getResultMessage());
+        assertEquals(delta, equation.getDelta());
+        assertEquals(x0, equation.getX0());
+        assertEquals(x1, equation.getX1());
+        assertEquals(x2, equation.getX2());
     }
 }
