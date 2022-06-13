@@ -66,8 +66,8 @@ class QuadraticEquationTest {
         //then
         assertEquals(4d, equation.getDelta());
         assertNull(equation.getX0());
-        assertEquals(-1d, equation.getX1());
-        assertEquals(-3d, equation.getX2());
+        assertNull(equation.getX1());
+        assertNull(equation.getX2());
         assertEquals("Delta wieksza od zera, pierwiastki: x1 = -1.0, x2 = -3.0", equation.getResultMessage());
     }
 }
